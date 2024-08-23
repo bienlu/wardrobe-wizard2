@@ -2,7 +2,7 @@
 <html data-wf-page="66c1d9d3c06cb5dbf10e5fcc" data-wf-site="66c1d9d2c06cb5dbf10e5f9b" data-wf-status="1">
    <head>
       <meta charset="utf-8"/>
-      <title>Minimal Responsive Website Template | Webflow Templates</title>
+      <title>Wardrobe Wizard</title>
       <meta content="width=device-width, initial-scale=1" name="viewport"/>
       <meta content="Webflow" name="generator"/>
       <link href="css/webflow-style.css" rel="stylesheet" type="text/css"/>
@@ -58,6 +58,19 @@
            color: black;
            text-decoration: none;
            cursor: pointer;
+         }
+
+         .related-styles {
+           display: flex;
+           flex-wrap: wrap;
+           gap: 10px;
+           margin-top: 20px;
+         }
+
+         .related-styles img {
+           width: 100px;
+           height: 100px;
+           object-fit: cover;
          }
       </style>
    </head>
@@ -117,11 +130,22 @@
             <span id="closeModal" class="close">&times;</span>
             <h2>Image Analysis Result</h2>
             <img id="uploadedImage" src="" alt="Uploaded Image" style="max-width: 100%; height: auto;">
+
+            <!-- Predicted Style Image -->
+            <h3>Predicted Fashion Style Image:</h3>
+            <img id="predictedStyleImage" src="" alt="Predicted Style Image" style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
             <div id="apiData">
                <h3>Details:</h3>
                <p id="predictedStyle">Predicted Fashion Style: <span></span></p>
                <p id="description">Description: <span></span></p>
                <p id="trend">Fashion Style in Trend: <span></span></p>
+            </div>
+
+            <!-- Related Style Images -->
+            <h3>Related Styles:</h3>
+            <div class="related-styles" id="relatedStyles">
+                <!-- Related style images will be appended here -->
             </div>
          </div>
       </div>
@@ -142,10 +166,24 @@
            // Display the uploaded image
            document.getElementById('uploadedImage').src = imageSrc;
 
+           // Display the predicted fashion style image
+           document.getElementById('predictedStyleImage').src = data.predictedStyleImage;
+
            // Populate the modal with the data from the API
            document.getElementById('predictedStyle').querySelector('span').textContent = data.predictedStyle;
            document.getElementById('description').querySelector('span').textContent = data.description;
            document.getElementById('trend').querySelector('span').textContent = data.trend;
+
+           // Clear any existing related styles
+           const relatedStylesContainer = document.getElementById('relatedStyles');
+           relatedStylesContainer.innerHTML = '';
+
+           // Display the related style images
+           data.relatedStyles.forEach(function(styleImage) {
+               const imgElement = document.createElement('img');
+               imgElement.src = styleImage;
+               relatedStylesContainer.appendChild(imgElement);
+           });
 
            // Display the modal
            document.getElementById('resultModal').style.display = "block";
@@ -177,9 +215,17 @@
 
                  // Dummy data for testing without the API
                  const dummyData = {
+                     predictedStyleImage: "https://via.placeholder.com/300", // Placeholder image for predicted style
                      predictedStyle: "Casual",
                      description: "A comfortable and stylish outfit suitable for everyday wear.",
-                     trend: "Currently trending in urban areas."
+                     trend: "Currently trending in urban areas.",
+                     relatedStyles: [
+                         "https://via.placeholder.com/100", // Placeholder images for related styles
+                         "https://via.placeholder.com/100",
+                         "https://via.placeholder.com/100",
+                         "https://via.placeholder.com/100",
+                         "https://via.placeholder.com/100"
+                     ]
                  };
 
                  // Open the modal and display the image and dummy data
