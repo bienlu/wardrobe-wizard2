@@ -100,7 +100,7 @@
                <div class="w-col w-col-4">
                   <div class="grey-icon-wrapper push-top"><img src="images/fashion-20confidence.jpg" width="328" sizes="(max-width: 479px) 68vw, (max-width: 767px) 328px, (max-width: 991px) 229.328125px, 299.984375px" alt="" srcset="images/fashion-20confidence-p-500.jpg 500w, images/fashion-20confidence.jpg 800w" class="big-icon"/></div>
                   <h3>fashion up</h3>
-                  <p>Wizard Wardrobe is your gateway into the fashion world. We want to provide to you the knowledge and foundation to elevate your style. With out intuitive tool, effortlessly discover fashion trends and build your confidence.</p>
+                  <p>Wizard Wardrobe is your gateway into the fashion world. We want to provide to you the knowledge and foundation to elevate your style. With our intuitive tool, effortlessly discover fashion trends and build your confidence.</p>
                </div>
                <div class="w-col w-col-4">
                   <div class="grey-icon-wrapper push-top"><img src="images/faq-image.png" width="166" sizes="(max-width: 479px) 45vw, 166px" alt="" srcset="images/faq-image-p-500.png 500w, images/faq-image.png 687w" class="big-icon"/></div>
@@ -172,32 +172,22 @@
              const file = fileInput.files[0];
 
              if (file) {
-                 // Create a FormData object to send the file
-                 const formData = new FormData();
-                 formData.append('image', file);
+                 // Create a URL for the uploaded image to display in the modal
+                 const imageUrl = URL.createObjectURL(file);
 
-                 // Send the file to the backend API
-                 fetch('YOUR_BACKEND_API_ENDPOINT', {
-                     method: 'POST',
-                     body: formData
-                 })
-                 .then(response => response.json())
-                 .then(data => {
-                     // Create a URL for the uploaded image to display in the modal
-                     const imageUrl = URL.createObjectURL(file);
-                     // Dummy data for testing without the API
-                     const dummyData = {
-                         predictedStyle: "Casual",
-                         description: "A comfortable and stylish outfit suitable for everyday wear.",
-                         trend: "Currently trending in urban areas."
-                     };
-                     // Open the modal and display the image and API data (replace 'dummyData' with 'data' when API is ready)
-                     openModal(imageUrl, dummyData);
-                 })
-                 .catch(error => {
-                     console.error('Error:', error);
-                     alert('An error occurred while uploading the image.');
-                 });
+                 // Dummy data for testing without the API
+                 const dummyData = {
+                     predictedStyle: "Casual",
+                     description: "A comfortable and stylish outfit suitable for everyday wear.",
+                     trend: "Currently trending in urban areas."
+                 };
+
+                 // Open the modal and display the image and dummy data
+                 openModal(imageUrl, dummyData);
+
+                 // Optional: Revoke the object URL after the modal is displayed to release memory
+                 // URL.revokeObjectURL(imageUrl);
+
              } else {
                  alert('Please select an image to upload.');
              }
