@@ -139,7 +139,7 @@
             </div>
 
             <!-- Related Style Images -->
-            <h3>Related Images:</h3>
+            <h3>Related Styles:</h3>
             <div class="related-styles" id="relatedStyles">
                 <!-- Related style images will be appended here -->
             </div>
@@ -161,9 +161,6 @@
          function openModal(imageSrc, data) {
            // Display the uploaded image
            document.getElementById('uploadedImage').src = imageSrc;
-
-           // Display the predicted fashion style image
-           document.getElementById('predictedStyleImage').src = data.predictedStyleImage;
 
            // Populate the modal with the data from the API
            document.getElementById('predictedStyle').querySelector('span').textContent = data.predictedStyle;
@@ -211,7 +208,6 @@
 
                  // Dummy data for testing without the API
                  const dummyData = {
-                     predictedStyleImage: "https://via.placeholder.com/300", // Placeholder image for predicted style
                      predictedStyle: "Casual",
                      description: "A comfortable and stylish outfit suitable for everyday wear.",
                      trend: "Currently trending in urban areas.",
